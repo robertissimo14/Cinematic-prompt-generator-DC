@@ -87,6 +87,7 @@
 
         <label for="genre">Genre</label>
         <select id="genre">
+            <option value="">(Empty)</option>
             <option>Sci-Fi</option>
             <option>Drama</option>
             <option>Thriller</option>
@@ -99,6 +100,7 @@
 
         <label for="director">Director</label>
         <select id="director">
+            <option value="">(Empty)</option>
             <option>Denis Villeneuve</option>
             <option>Guillermo del Toro</option>
             <option>Christopher Nolan</option>
@@ -109,6 +111,7 @@
 
         <label for="visualStyle">Visual Style</label>
         <select id="visualStyle">
+            <option value="">(Empty)</option>
             <option>Hyperrealism</option>
             <option>Neo-Expressionism</option>
             <option>Naturalistic Realism</option>
@@ -116,29 +119,65 @@
             <option>Grainy Retro Analog</option>
         </select>
 
-        <label for="lens">Lens Type</label>
-        <select id="lens">
-            <option>Anamorphic</option>
-            <option>Prime 50mm</option>
-            <option>Zoom 24-70mm</option>
-            <option>Wide-Angle 16mm</option>
+        <label for="camera">Camera</label>
+        <select id="camera">
+            <option value="">(Empty)</option>
+            <option>ARRI Alexa LF</option>
+            <option>ARRI Amira</option>
+            <option>RED Komodo 6K</option>
+            <option>RED V-Raptor XL</option>
+        </select>
+
+        <label for="weather">Weather</label>
+        <select id="weather">
+            <option value="">(Empty)</option>
+            <option>Sunny</option>
+            <option>Rainy</option>
+            <option>Heavy Rain</option>
+            <option>Stormy</option>
+            <option>Foggy</option>
+            <option>Misty</option>
+            <option>Windy</option>
         </select>
 
         <label for="lighting">Lighting</label>
         <select id="lighting">
+            <option value="">(Empty)</option>
             <option>Golden Hour</option>
             <option>Neon Lighting</option>
             <option>Natural Light</option>
             <option>Chiaroscuro</option>
         </select>
 
+        <label for="time">Time of Day</label>
+        <select id="time">
+            <option value="">(Empty)</option>
+            <option>Morning</option>
+            <option>Midday</option>
+            <option>Evening</option>
+            <option>Dawn</option>
+            <option>Dusk</option>
+            <option>Golden Hour</option>
+            <option>Midnight</option>
+        </select>
+
         <label for="mood">Mood</label>
         <select id="mood">
+            <option value="">(Empty)</option>
             <option>Mysterious</option>
             <option>Romantic</option>
             <option>Melancholic</option>
             <option>Dreamlike</option>
             <option>Surreal</option>
+        </select>
+
+        <label for="lens">Lens Type</label>
+        <select id="lens">
+            <option value="">(Empty)</option>
+            <option>Anamorphic</option>
+            <option>Prime 50mm</option>
+            <option>Zoom 24-70mm</option>
+            <option>Wide-Angle 16mm</option>
         </select>
 
         <button onclick="generatePrompt()">Generate Prompt</button>
@@ -152,14 +191,31 @@
 
     <script>
         function generatePrompt() {
-            const genre = document.getElementById('genre').value;
-            const director = document.getElementById('director').value;
-            const style = document.getElementById('visualStyle').value;
-            const lens = document.getElementById('lens').value;
-            const lighting = document.getElementById('lighting').value;
-            const mood = document.getElementById('mood').value;
+            const values = {
+                genre: document.getElementById('genre').value,
+                director: document.getElementById('director').value,
+                visualStyle: document.getElementById('visualStyle').value,
+                camera: document.getElementById('camera').value,
+                weather: document.getElementById('weather').value,
+                lighting: document.getElementById('lighting').value,
+                time: document.getElementById('time').value,
+                mood: document.getElementById('mood').value,
+                lens: document.getElementById('lens').value,
+            };
 
-            const prompt = `${genre}: A scene shot in the style of ${director} using ${style} cinematography, filmed with a ${lens} lens under ${lighting} lighting. The mood is ${mood}. Designed for hyperrealistic cinematic output.`;
+            let prompt = "";
+
+            if (values.genre) prompt += `${values.genre} scene`;
+            if (values.director) prompt += ` directed in the style of ${values.director}`;
+            if (values.visualStyle) prompt += ` using ${values.visualStyle} cinematography`;
+            if (values.camera) prompt += `, filmed on a ${values.camera}`;
+            if (values.lens) prompt += ` with a ${values.lens} lens`;
+            if (values.lighting) prompt += `, lit using ${values.lighting}`;
+            if (values.weather) prompt += ` in ${values.weather.toLowerCase()} weather`;
+            if (values.time) prompt += ` during ${values.time.toLowerCase()}`;
+            if (values.mood) prompt += `, evoking a ${values.mood.toLowerCase()} mood`;
+
+            prompt += `. Designed for hyperrealistic cinematic output.`;
 
             document.getElementById('output').textContent = prompt;
         }
@@ -174,4 +230,3 @@
     </script>
 </body>
 </html>
- 
