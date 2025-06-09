@@ -1,16 +1,241 @@
-<!-- integrated tooltip dropdown for photo shot type -->
 
-<!-- SNIPPET ONLY -->
-<select id="photoShotType">
-  <option value="">(Empty)</option>
-  <option title="The subject is shot straight on, at eye level.">Eye-Level</option>
-  <option title="The camera looks down on the subject from above.">High Angle</option>
-  <option title="The camera shoots from below the subject, looking up.">Low Angle</option>
-  <option title="Shot from behind a subject’s shoulder, partially showing their back.">Over-the-Shoulder</option>
-  <option title="Focus tightly on the subject's face or specific detail.">Close-Up</option>
-  <option title="Frames the subject from the waist up.">Medium Shot</option>
-  <option title="Captures the entire body of the subject.">Full Body</option>
-  <option title="The camera is positioned directly above the subject.">Top-Down</option>
-  <option title="The camera is tilted so the horizon is not level.">Dutch Angle</option>
-  <option title="The subject faces away from the camera.">Back View</option>
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<title>Cinematic Prompt Generator</title>
+<style>
+    body {
+      background-color: #0e0e0e;
+      color: white;
+      font-family: Arial, sans-serif;
+      display: flex;
+      justify-content: center;
+      margin: 40px;
+    }
+    .container {
+      background-color: #111;
+      padding: 40px;
+      border-radius: 10px;
+      width: 600px;
+      box-shadow: 0 0 20px rgba(0,255,200,0.2);
+    }
+    h1 {
+      color: #00ffc2;
+      text-align: center;
+      margin-bottom: 30px;
+    }
+    label {
+      margin-top: 15px;
+      display: block;
+      font-weight: bold;
+    }
+    select, button {
+      width: 100%;
+      padding: 10px;
+      margin-top: 5px;
+      background-color: #222;
+      color: white;
+      border: 1px solid #555;
+      border-radius: 4px;
+    }
+    #prompt {
+      background-color: #1a1a1a;
+      padding: 15px;
+      margin-top: 20px;
+      border-left: 4px solid #00ffc2;
+    }
+    #copyButton {
+      background-color: #00ffc2;
+      color: black;
+      font-weight: bold;
+    }
+    #generateButton {
+      background-color: #5f44ff;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+<h1>Cinematic Prompt Generator</h1>
+<label>Genre</label>
+<select id="genre">
+<option>(Empty)</option>
+<option>Sci-Fi</option>
+<option>Drama</option>
+<option>Fantasy</option>
+<option>Documentary</option>
+<option>Horror</option>
 </select>
+<label>Director</label>
+<select id="director">
+<option>(Empty)</option>
+<option>Denis Villeneuve</option>
+<option>Christopher Nolan</option>
+<option>Greta Gerwig</option>
+<option>Wes Anderson</option>
+<option>Terrence Malick</option>
+</select>
+<label>Visual Style</label>
+<select id="visualStyle">
+<option>(Empty)</option>
+<option>Hyperrealism</option>
+<option>Surrealism</option>
+<option>Film Noir</option>
+<option>Retro</option>
+</select>
+<label>Camera</label>
+<select id="camera">
+<option>(Empty)</option>
+<option>ARRI Alexa 35</option>
+<option>RED Komodo</option>
+</select>
+<label>Weather</label>
+<select id="weather">
+<option>(Empty)</option>
+<option>Sunny</option>
+<option>Rainy</option>
+<option>Stormy</option>
+<option>Foggy</option>
+<option>Misty</option>
+<option>Windy</option>
+<option>Snowy</option>
+</select>
+<label>Lighting</label>
+<select id="lighting">
+<option>(Empty)</option>
+<option>Golden Hour</option>
+<option>Low Key</option>
+<option>Soft Natural</option>
+</select>
+<label>Time of Day</label>
+<select id="timeOfDay">
+<option>(Empty)</option>
+<option>Morning</option>
+<option>Midday</option>
+<option>Evening</option>
+<option>Dawn</option>
+<option>Dusk</option>
+<option>Golden Hour</option>
+<option>Midnight</option>
+</select>
+<label>Mood</label>
+<select id="mood">
+<option>(Empty)</option>
+<option>Mysterious</option>
+<option>Melancholic</option>
+<option>Dreamlike</option>
+<option>Romantic</option>
+</select>
+<label>Lens Type</label>
+<select id="lens">
+<option>(Empty)</option>
+<option>Anamorphic</option>
+<option>Wide Angle</option>
+<option>Telephoto</option>
+</select>
+<label>Camera Movement</label><div id="cameraMovementDescription" style="color: white; margin-top: 5px;"></div>
+<select id="camera-movement"><option>(Empty)</option><option>Static Shot</option><option>Pan</option><option>Tilt</option><option>Dolly (Tracking Shot)</option><option>Crane (Jib) Shot</option><option>Steadicam</option><option>Handheld</option><option>Zoom</option><option>Push-In</option><option>Pull-Out</option><option>Tracking Shot (Long Take)</option><option>Arc Shot</option><option>Whip Pan (Swish Pan)</option><option>Zolly (Dolly Zoom)</option><option>Pedestal (Boom Up/Down)</option><option>Drone Shot</option></select>
+<label>Camera Angle</label>
+<select id="angle">
+<option>(Empty)</option>
+<option>Overhead</option>
+<option>Low Angle</option>
+<option>High Angle</option>
+<option>Eye Level</option>
+<option>Dutch Tilt</option>
+</select>
+<label>Orientation</label>
+<select id="orientation">
+<option>(Empty)</option>
+<option>Portrait</option>
+<option>Landscape</option>
+</select>
+<label>Photography Mode</label>
+<select id="photoMode">
+<option>(Empty)</option>
+<option>Canon EOS R5</option>
+<option>Nikon Z9</option>
+<option>Sony A7R V</option>
+</select>
+<label>Photography Lens</label>
+<select id="photoLens">
+<option>(Empty)</option>
+<option>85mm f/1.2</option>
+<option>50mm f/1.4</option>
+<option>24-70mm f/2.8</option>
+</select>
+<label>Photo Shot Type</label>
+<select id="photoShot">
+<option>(Empty)</option>
+<option>Eye-Level</option>
+<option>High Angle</option>
+<option>Low Angle</option>
+<option>Over-the-Shoulder</option>
+<option>Close-Up</option>
+<option>Medium Shot</option>
+<option>Full Body</option>
+<option>Top-Down</option>
+<option>Dutch Angle</option>
+<option>Back View</option>
+</select>
+<button id="generateButton">Generate Prompt</button>
+<div id="prompt"></div>
+<button id="copyButton" onclick="copyPrompt()">Copy Prompt</button>
+</div>
+<script>
+    const generate = document.getElementById('generateButton');
+    const output = document.getElementById('prompt');
+
+    generate.onclick = () => {
+      const fields = [
+        ['Genre', 'genre'], ['Director', 'director'], ['Visual Style', 'visualStyle'],
+        ['Camera', 'camera'], ['Weather', 'weather'], ['Lighting', 'lighting'],
+        ['Time of Day', 'timeOfDay'], ['Mood', 'mood'], ['Lens', 'lens'],
+        ['Camera Movement', 'movement'], ['Camera Angle', 'angle'],
+        ['Orientation', 'orientation'], ['Photography Mode', 'photoMode'],
+        ['Photography Lens', 'photoLens'], ['Photo Shot Type', 'photoShot']
+      ];
+
+      const parts = fields.map(([label, id]) => {
+        const val = document.getElementById(id).value;
+        return val && val !== "(Empty)" ? `${label}: ${val}` : null;
+      }).filter(Boolean);
+
+      output.innerText = parts.join(' | ');
+    };
+
+    function copyPrompt() {
+      navigator.clipboard.writeText(document.getElementById('prompt').innerText);
+    }
+  </script>
+<script>
+const cameraMovementDescriptions = {
+  "Static Shot": "No camera movement. Used for stillness, tension, or uninterrupted performance.",
+  "Pan": "Horizontal pivot. Used to reveal space or follow a subject.",
+  "Tilt": "Vertical movement. Used to reveal tall elements or shift scale.",
+  "Dolly (Tracking Shot)": "Camera moves on rails or wheels. Used for immersive push/pull emotional flow.",
+  "Crane (Jib) Shot": "Camera lifted by crane. Used for grand reveals or exits.",
+  "Steadicam": "Fluid handheld rig. Used for immersive long takes.",
+  "Handheld": "Shaky, unsteady movement. Used for realism, chaos, or urgency.",
+  "Zoom": "Lens zooms in/out. Used for stylized or psychological focus shifts.",
+  "Push-In": "Camera moves forward. Used to heighten emotion.",
+  "Pull-Out": "Camera moves back. Used for emotional detachment or reveals.",
+  "Tracking Shot (Long Take)": "Continuous moving shot. Used to immerse viewer without cuts.",
+  "Arc Shot": "Camera circles subject. Used for tension, intimacy, or surreal effect.",
+  "Whip Pan (Swish Pan)": "Fast horizontal blur. Used for energy or sudden transitions.",
+  "Zolly (Dolly Zoom)": "Zoom + dolly effect. Used for psychological distortion or epiphany.",
+  "Pedestal (Boom Up/Down)": "Vertical lift of camera. Used to change stature or focus.",
+  "Drone Shot": "Aerial movement. Used to establish geography or epic scale."
+};
+
+document.getElementById('camera-movement')?.addEventListener('change', function () {
+  const value = this.value;
+  document.getElementById('cameraMovementDescription').textContent =
+    cameraMovementDescriptions[value] || "";
+});
+</script>
+</body>
+</html>
