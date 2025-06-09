@@ -1,0 +1,125 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Cinematic Prompt Generator</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 40px;
+            background: #0d0d0d;
+            color: #f2f2f2;
+        }
+        h1 {
+            color: #00ffc2;
+        }
+        label, select, textarea, button {
+            display: block;
+            width: 100%;
+            margin-top: 20px;
+            font-size: 16px;
+        }
+        select, textarea {
+            padding: 10px;
+            border-radius: 5px;
+            border: none;
+        }
+        button {
+            background-color: #5f44ff;
+            color: white;
+            padding: 15px;
+            margin-top: 30px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+        #output {
+            background: #1a1a1a;
+            padding: 20px;
+            margin-top: 20px;
+            border-left: 4px solid #00ffc2;
+            white-space: pre-line;
+        }
+    </style>
+</head>
+<body>
+    <h1>Cinematic Prompt Generator</h1>
+
+    <label for="genre">Genre</label>
+    <select id="genre">
+        <option>Sci-Fi</option>
+        <option>Drama</option>
+        <option>Thriller</option>
+        <option>Romance</option>
+        <option>Fantasy</option>
+        <option>Horror</option>
+        <option>Surrealism</option>
+        <option>Nature Documentary</option>
+    </select>
+
+    <label for="director">Director</label>
+    <select id="director">
+        <option>Denis Villeneuve</option>
+        <option>Guillermo del Toro</option>
+        <option>Christopher Nolan</option>
+        <option>Wes Anderson</option>
+        <option>Barry Jenkins</option>
+        <option>Robert Eggers</option>
+    </select>
+
+    <label for="visualStyle">Visual Style</label>
+    <select id="visualStyle">
+        <option>Hyperrealism</option>
+        <option>Neo-Expressionism</option>
+        <option>Naturalistic Realism</option>
+        <option>Ultra-Widescreen Tableaux</option>
+        <option>Grainy Retro Analog</option>
+    </select>
+
+    <label for="lens">Lens Type</label>
+    <select id="lens">
+        <option>Anamorphic</option>
+        <option>Prime 50mm</option>
+        <option>Zoom 24-70mm</option>
+        <option>Wide-Angle 16mm</option>
+    </select>
+
+    <label for="lighting">Lighting</label>
+    <select id="lighting">
+        <option>Golden Hour</option>
+        <option>Neon Lighting</option>
+        <option>Natural Light</option>
+        <option>Chiaroscuro</option>
+    </select>
+
+    <label for="mood">Mood</label>
+    <select id="mood">
+        <option>Mysterious</option>
+        <option>Romantic</option>
+        <option>Melancholic</option>
+        <option>Dreamlike</option>
+        <option>Surreal</option>
+    </select>
+
+    <button onclick="generatePrompt()">Generate Prompt</button>
+
+    <div id="output"></div>
+
+    <script>
+        function generatePrompt() {
+            const genre = document.getElementById('genre').value;
+            const director = document.getElementById('director').value;
+            const style = document.getElementById('visualStyle').value;
+            const lens = document.getElementById('lens').value;
+            const lighting = document.getElementById('lighting').value;
+            const mood = document.getElementById('mood').value;
+
+            const prompt = `${genre}: A scene shot in the style of ${director} using ${style} cinematography, filmed with a ${lens} lens under ${lighting} lighting. The mood is ${mood}. Designed for hyperrealistic cinematic output.`;
+
+            document.getElementById('output').textContent = prompt;
+        }
+    </script>
+</body>
+</html>
