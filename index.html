@@ -4,99 +4,55 @@
 <head>
   <meta charset="UTF-8" />
   <title>Cinematic Prompt Generator</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <style>
     body {
-      font-family: 'Segoe UI', sans-serif;
-      background: #0f0f0f;
-      color: #eaeaea;
-      padding: 40px;
-      margin: 0;
+      background-color: #0e0e0e;
+      color: white;
+      font-family: Arial, sans-serif;
+      display: flex;
+      justify-content: center;
+      margin: 40px;
     }
-
+    .container {
+      background-color: #111;
+      padding: 40px;
+      border-radius: 10px;
+      width: 600px;
+      box-shadow: 0 0 20px rgba(0,255,200,0.2);
+    }
     h1 {
       color: #00ffc2;
       text-align: center;
-      margin-bottom: 20px;
+      margin-bottom: 30px;
     }
-
-    .container {
-      max-width: 800px;
-      margin: auto;
-      background: #1a1a1a;
-      padding: 30px;
-      border-radius: 12px;
-      box-shadow: 0 0 15px rgba(0, 255, 194, 0.15);
-    }
-
     label {
       margin-top: 15px;
       display: block;
       font-weight: bold;
     }
-
     select, button {
       width: 100%;
-      margin-top: 8px;
       padding: 10px;
-      font-size: 16px;
-      border-radius: 6px;
-      border: none;
-      background-color: #2a2a2a;
-      color: #eaeaea;
+      margin-top: 5px;
+      background-color: #222;
+      color: white;
+      border: 1px solid #555;
+      border-radius: 4px;
     }
-
-    button {
-      margin-top: 25px;
+    #prompt {
+      background-color: #1a1a1a;
+      padding: 15px;
+      margin-top: 20px;
+      border-left: 4px solid #00ffc2;
+    }
+    #copyButton {
+      background-color: #00ffc2;
+      color: black;
+      font-weight: bold;
+    }
+    #generateButton {
       background-color: #5f44ff;
       font-weight: bold;
-      transition: 0.3s;
-    }
-
-    button:hover {
-      background-color: #472dfc;
-    }
-
-    #output {
-      margin-top: 30px;
-      padding: 20px;
-      background: #111;
-      border-left: 4px solid #00ffc2;
-      white-space: pre-line;
-      border-radius: 6px;
-    }
-
-    .copy-btn {
-      margin-top: 10px;
-      background: #00ffc2;
-      color: #000;
-      font-weight: bold;
-    }
-
-    .footer {
-      margin-top: 40px;
-      text-align: center;
-      font-size: 14px;
-      color: #777;
-    }
-
-    .toggle-buttons {
-      text-align: center;
-      margin-bottom: 20px;
-    }
-
-    .toggle-buttons button {
-      width: 48%;
-      margin: 5px 1%;
-    }
-
-    .preview-image {
-      margin-top: 10px;
-      max-width: 100%;
-      height: auto;
-      border: 1px solid #444;
-      border-radius: 6px;
-      display: none;
     }
   </style>
 </head>
@@ -104,249 +60,178 @@
   <div class="container">
     <h1>Cinematic Prompt Generator</h1>
 
-    <div class="toggle-buttons">
-      <button onclick="showMode('cinema')">🎬 Cinema Mode</button>
-      <button onclick="showMode('photo')">📸 Photo Mode</button>
-    </div>
-
-    <div id="common-section">
-      <label for="genre">Genre</label>
-      <select id="genre">
-        <option value="">(Empty)</option>
-        <option>Sci-Fi</option>
-        <option>Drama</option>
-        <option>Thriller</option>
-        <option>Romance</option>
-        <option>Fantasy</option>
-        <option>Horror</option>
-        <option>Surrealism</option>
-        <option>Nature Documentary</option>
-      </select>
-
-      <label for="time">Time of Day</label>
-      <select id="time">
-        <option value="">(Empty)</option>
-        <option>Morning</option>
-        <option>Midday</option>
-        <option>Evening</option>
-        <option>Dawn</option>
-        <option>Dusk</option>
-        <option>Golden Hour</option>
-        <option>Midnight</option>
-      </select>
-
-      <label for="weather">Weather</label>
-      <select id="weather">
-        <option value="">(Empty)</option>
-        <option>Sunny</option>
-        <option>Rainy</option>
-        <option>Heavy Rain</option>
-        <option>Stormy</option>
-        <option>Foggy</option>
-        <option>Misty</option>
-        <option>Windy</option>
-      </select>
-
-      <label for="mood">Mood</label>
-      <select id="mood">
-        <option value="">(Empty)</option>
-        <option>Mysterious</option>
-        <option>Romantic</option>
-        <option>Melancholic</option>
-        <option>Dreamlike</option>
-        <option>Surreal</option>
-      </select>
-
-      <label for="director">Director</label>
-      <select id="director">
-        <option value="">(Empty)</option>
-        <option>Denis Villeneuve</option>
-        <option>Guillermo del Toro</option>
-        <option>Christopher Nolan</option>
-        <option>Wes Anderson</option>
-        <option>Barry Jenkins</option>
-        <option>Robert Eggers</option>
-      </select>
-
-      <label for="visualStyle">Visual Style</label>
-      <select id="visualStyle">
-        <option value="">(Empty)</option>
-        <option>Hyperrealism</option>
-        <option>Neo-Expressionism</option>
-        <option>Naturalistic Realism</option>
-        <option>Ultra-Widescreen Tableaux</option>
-        <option>Grainy Retro Analog</option>
-      </select>
-    </div>
-
-    <div id="photo-section" style="display: none;">
-      <label for="photoCamera">Photography Mode</label>
-      <select id="photoCamera" onchange="updatePreview('photoCamera', 'photoPreview')">
-        <option value="">(Empty)</option>
-        <option>Hasselblad X2D 100C</option>
-        <option>Canon EOS R5</option>
-        <option>Sony A7R V</option>
-      </select>
-      <img id="photoPreview" class="preview-image" src="" alt="Photo camera preview"/>
-
-      <label for="photoLens">Photography Lens</label>
-  <label for="photoShot">Photo Shot Type</label>
-  <select id="photoShot">
-    <option value="">(Empty)</option>
-    <option>Eye-Level</option>
-    <option>High Angle</option>
-    <option>Low Angle</option>
-    <option>Over-the-Shoulder (OTS)</option>
-    <option>Close-Up (CU)</option>
-    <option>Medium Shot (Waist-Up)</option>
-    <option>Full Body / Full Length</option>
-    <option>Top-Down (Bird's Eye)</option>
-    <option>Tilted Frame (Dutch Angle)</option>
-    <option>Back View or Rear Profile</option>
-  </select>
-
-      <select id="photoLens">
-        <option value="">(Empty)</option>
-        <option>XCD 80mm f/1.9</option>
-        <option>RF 85mm f/1.2</option>
-        <option>FE 135mm f/1.8 GM</option>
-      </select>
-    </div>
-
-    <div id="cinema-section">
-      <label for="camera">Cinema Camera</label>
-      <select id="camera" onchange="updatePreview('camera', 'cinemaPreview')">
-        <option value="">(Empty)</option>
-        <option>ARRI Alexa LF</option>
-        <option>ARRI Amira</option>
-        <option>RED Komodo 6K</option>
-        <option>RED V-Raptor XL</option>
-      </select>
-      <img id="cinemaPreview" class="preview-image" src="" alt="Cinema camera preview"/>
-
-      <label for="lens">Cinema Lens</label>
-      <select id="lens">
-        <option value="">(Empty)</option>
-        <option>Anamorphic</option>
-        <option>Prime 50mm</option>
-        <option>Zoom 24-70mm</option>
-        <option>Wide-Angle 16mm</option>
-      </select>
-
-      <label for="angle">Camera Angle</label>
-      <select id="angle">
-        <option value="">(Empty)</option>
-        <option>Eye-Level</option>
-        <option>High Angle</option>
-        <option>Low Angle</option>
-        <option>Overhead (Bird’s Eye)</option>
-        <option>Worm’s Eye View</option>
-        <option>Dutch Angle</option>
-        <option>Over-the-Shoulder (OTS)</option>
-        <option>Point of View (POV)</option>
-        <option>Extreme Close-Up</option>
-        <option>Close-Up</option>
-        <option>Medium Shot</option>
-        <option>Medium Close-Up</option>
-        <option>Medium Long Shot</option>
-        <option>Full Shot</option>
-        <option>Long Shot (Wide Shot)</option>
-        <option>Extreme Long Shot</option>
-        <option>Two-Shot</option>
-        <option>Tracking OTS Shot</option>
-        <option>Static Shot</option>
-      </select>
-
-      <label for="movement">Camera Movement</label>
-      <select id="movement">
-        <option value="">(Empty)</option>
-        <option>Pan</option>
-        <option>Tilt</option>
-        <option>Dolly</option>
-        <option>Truck</option>
-        <option>Pedestal</option>
-        <option>Zoom</option>
-        <option>Crane</option>
-        <option>Handheld</option>
-        <option>Steadicam</option>
-        <option>Push-In</option>
-        <option>Pull-Out</option>
-        <option>Whip Pan</option>
-        <option>Tracking Shot</option>
-        <option>Arc Shot</option>
-        <option>Zolly (Dolly Zoom)</option>
-      </select>
-    </div>
-
-    <label for="lighting">Lighting</label>
-    <select id="lighting">
-      <option value="">(Empty)</option>
-      <option>Golden Hour</option>
-      <option>Neon Lighting</option>
-      <option>Natural Light</option>
-      <option>Chiaroscuro</option>
+    <label>Genre</label>
+    <select id="genre">
+      <option>(Empty)</option>
+      <option>Sci-Fi</option>
+      <option>Drama</option>
+      <option>Fantasy</option>
+      <option>Documentary</option>
+      <option>Horror</option>
     </select>
 
-    <button onclick="generatePrompt()">Generate Prompt</button>
-    <div id="output"></div>
-    <button class="copy-btn" onclick="copyPrompt()">Copy Prompt</button>
-  </div>
+    <label>Director</label>
+    <select id="director">
+      <option>(Empty)</option>
+      <option>Denis Villeneuve</option>
+      <option>Christopher Nolan</option>
+      <option>Greta Gerwig</option>
+      <option>Wes Anderson</option>
+      <option>Terrence Malick</option>
+    </select>
 
-  <div class="footer">
-    &copy; 2025 Cinematic Prompt Generator. Made with 💡 and 🎬
+    <label>Visual Style</label>
+    <select id="visualStyle">
+      <option>(Empty)</option>
+      <option>Hyperrealism</option>
+      <option>Surrealism</option>
+      <option>Film Noir</option>
+      <option>Retro</option>
+    </select>
+
+    <label>Camera</label>
+    <select id="camera">
+      <option>(Empty)</option>
+      <option>ARRI Alexa 35</option>
+      <option>RED Komodo</option>
+    </select>
+
+    <label>Weather</label>
+    <select id="weather">
+      <option>(Empty)</option>
+      <option>Sunny</option>
+      <option>Rainy</option>
+      <option>Stormy</option>
+      <option>Foggy</option>
+      <option>Misty</option>
+      <option>Windy</option>
+      <option>Snowy</option>
+    </select>
+
+    <label>Lighting</label>
+    <select id="lighting">
+      <option>(Empty)</option>
+      <option>Golden Hour</option>
+      <option>Low Key</option>
+      <option>Soft Natural</option>
+    </select>
+
+    <label>Time of Day</label>
+    <select id="timeOfDay">
+      <option>(Empty)</option>
+      <option>Morning</option>
+      <option>Midday</option>
+      <option>Evening</option>
+      <option>Dawn</option>
+      <option>Dusk</option>
+      <option>Golden Hour</option>
+      <option>Midnight</option>
+    </select>
+
+    <label>Mood</label>
+    <select id="mood">
+      <option>(Empty)</option>
+      <option>Mysterious</option>
+      <option>Melancholic</option>
+      <option>Dreamlike</option>
+      <option>Romantic</option>
+    </select>
+
+    <label>Lens Type</label>
+    <select id="lens">
+      <option>(Empty)</option>
+      <option>Anamorphic</option>
+      <option>Wide Angle</option>
+      <option>Telephoto</option>
+    </select>
+
+    <label>Camera Movement</label>
+    <select id="movement">
+      <option>(Empty)</option>
+      <option>Tracking Shot</option>
+      <option>Dolly Zoom</option>
+      <option>Crane</option>
+      <option>Handheld</option>
+      <option>Steadicam</option>
+    </select>
+
+    <label>Camera Angle</label>
+    <select id="angle">
+      <option>(Empty)</option>
+      <option>Overhead</option>
+      <option>Low Angle</option>
+      <option>High Angle</option>
+      <option>Eye Level</option>
+      <option>Dutch Tilt</option>
+    </select>
+
+    <label>Orientation</label>
+    <select id="orientation">
+      <option>(Empty)</option>
+      <option>Portrait</option>
+      <option>Landscape</option>
+    </select>
+
+    <label>Photography Mode</label>
+    <select id="photoMode">
+      <option>(Empty)</option>
+      <option>Canon EOS R5</option>
+      <option>Nikon Z9</option>
+      <option>Sony A7R V</option>
+    </select>
+
+    <label>Photography Lens</label>
+    <select id="photoLens">
+      <option>(Empty)</option>
+      <option>85mm f/1.2</option>
+      <option>50mm f/1.4</option>
+      <option>24-70mm f/2.8</option>
+    </select>
+
+    <label>Photo Shot Type</label>
+    <select id="photoShot">
+      <option>(Empty)</option>
+      <option>Eye-Level</option>
+      <option>High Angle</option>
+      <option>Low Angle</option>
+      <option>Over-the-Shoulder</option>
+      <option>Close-Up</option>
+      <option>Medium Shot</option>
+      <option>Full Body</option>
+      <option>Top-Down</option>
+      <option>Dutch Angle</option>
+      <option>Back View</option>
+    </select>
+
+    <button id="generateButton">Generate Prompt</button>
+    <div id="prompt"></div>
+    <button id="copyButton" onclick="copyPrompt()">Copy Prompt</button>
   </div>
 
   <script>
-    function showMode(mode) {
-      document.getElementById('photo-section').style.display = mode === 'photo' ? 'block' : 'none';
-      document.getElementById('cinema-section').style.display = mode === 'photo' ? 'none' : 'block';
-    }
+    const generate = document.getElementById('generateButton');
+    const output = document.getElementById('prompt');
 
-    function updatePreview(selectId, imageId) {
-      const value = document.getElementById(selectId).value;
-      const preview = document.getElementById(imageId);
-      let imageMap = {
-        'Hasselblad X2D 100C': 'https://images.unsplash.com/photo-1617814078373-1995575d1a4b',
-        'Canon EOS R5': 'https://images.unsplash.com/photo-1616469821509-e3f9a6010e1a',
-        'Sony A7R V': 'https://images.unsplash.com/photo-1606788075764-83b26f7283fc',
-        'ARRI Alexa LF': 'https://images.unsplash.com/photo-1615056785883-efc7dc64ae92',
-        'ARRI Amira': 'https://images.unsplash.com/photo-1620654737023-bb515c573ea4',
-        'RED Komodo 6K': 'https://images.unsplash.com/photo-1633541616563-eaa36e5ffb39',
-        'RED V-Raptor XL': 'https://images.unsplash.com/photo-1621331044071-f20e90c3024d'
-      };
-      preview.src = imageMap[value] || "";
-      preview.style.display = value ? 'block' : 'none';
-    }
+    generate.onclick = () => {
+      const fields = [
+        ['Genre', 'genre'], ['Director', 'director'], ['Visual Style', 'visualStyle'],
+        ['Camera', 'camera'], ['Weather', 'weather'], ['Lighting', 'lighting'],
+        ['Time of Day', 'timeOfDay'], ['Mood', 'mood'], ['Lens', 'lens'],
+        ['Camera Movement', 'movement'], ['Camera Angle', 'angle'],
+        ['Orientation', 'orientation'], ['Photography Mode', 'photoMode'],
+        ['Photography Lens', 'photoLens'], ['Photo Shot Type', 'photoShot']
+      ];
 
-    function generatePrompt() {
-      const get = id => document.getElementById(id).value;
-      let prompt = "";
+      const parts = fields.map(([label, id]) => {
+        const val = document.getElementById(id).value;
+        return val && val !== "(Empty)" ? `${label}: ${val}` : null;
+      }).filter(Boolean);
 
-      if (get('genre')) prompt += `${get('genre')} scene`;
-      if (get('time')) prompt += ` at ${get('time').toLowerCase()}`;
-      if (get('weather')) prompt += ` during ${get('weather').toLowerCase()} weather`;
-      if (get('mood')) prompt += `, evoking a ${get('mood').toLowerCase()} mood`;
-      if (get('director')) prompt += `. Shot in the style of ${get('director')}`;
-      if (get('visualStyle')) prompt += ` using ${get('visualStyle').toLowerCase()}`;
-      if (get('photoCamera')) prompt += `. Captured with ${get('photoCamera')}`;
-      if (get('photoLens')) prompt += ` and ${get('photoLens')} lens`;
-      if (get('camera')) prompt += `. Cinematography on ${get('camera')}`;
-      if (get('lens')) prompt += ` with a ${get('lens')}`;
-      if (get('angle')) prompt += ` using a ${get('angle').toLowerCase()} camera angle`;
-      if (get('movement')) prompt += ` and ${get('movement').toLowerCase()} movement`;
-      if (get('lighting')) prompt += `. Lighting: ${get('lighting').toLowerCase()}`;
-
-      prompt += `. Designed for hyperrealistic cinematic output.`;
-
-      document.getElementById('output').textContent = prompt;
-    }
+      output.innerText = parts.join(' | ');
+    };
 
     function copyPrompt() {
-      const output = document.getElementById('output').textContent;
-      if (!output) return;
-      navigator.clipboard.writeText(output).then(() => {
-        alert("Prompt copied to clipboard!");
-      });
+      navigator.clipboard.writeText(document.getElementById('prompt').innerText);
     }
   </script>
 </body>
