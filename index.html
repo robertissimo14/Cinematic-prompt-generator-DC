@@ -2,118 +2,91 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Cinematic Prompt Generator</title>
-  <style>
-    body {
-      background-color: #0f0f0f;
-      color: #00ffc2;
-      font-family: Arial, sans-serif;
-      padding: 2rem;
-    }
-    h1 {
-      text-align: center;
-      color: #00ffc2;
-    }
-    select, button {
-      width: 100%;
-      padding: 10px;
-      margin: 10px 0;
-      font-size: 16px;
-    }
-    #output {
-      margin-top: 20px;
-      background-color: #1a1a1a;
-      padding: 20px;
-      color: #ffffff;
-      min-height: 50px;
-    }
-    .copy-button {
-      background-color: #00ffc2;
-      border: none;
-      color: #000;
-      font-weight: bold;
-    }
-    .generate-button {
-      background-color: #5f44ff;
-      color: white;
-      border: none;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <title>Cinematic/Photographic Prompt Generator</title>
+    <style>
+        body {
+            background-color: #0e0e0e;
+            color: #00ffc2;
+            font-family: Arial, sans-serif;
+            padding: 20px;
+        }
+        h1 {
+            text-align: center;
+            color: #00ffc2;
+        }
+        .toggle-container {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+        .toggle-button {
+            background-color: #5f44ff;
+            color: white;
+            padding: 10px 20px;
+            margin: 0 10px;
+            border: none;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        .form-section {
+            display: none;
+            flex-direction: column;
+            margin: 0 auto;
+            max-width: 600px;
+        }
+        .form-section.active {
+            display: flex;
+        }
+        label {
+            margin-top: 10px;
+        }
+        select, button {
+            padding: 10px;
+            margin-top: 5px;
+        }
+    </style>
 </head>
 <body>
-  <h1>Cinematic Prompt Generator</h1>
+    <h1>Cinematic/Photographic Prompt Generator</h1>
+    <div class="toggle-container">
+        <button class="toggle-button" onclick="toggleMode('cinematic')">Cinematic Mode</button>
+        <button class="toggle-button" onclick="toggleMode('photographic')">Photographic Mode</button>
+    </div>
 
-  <label>Genre</label>
-  <select id="genre">
-    <option>(Empty)</option>
-    <option>Sci-Fi</option>
-    <option>Drama</option>
-  </select>
+    <div id="cinematic" class="form-section active">
+        <label>Genre:<select><option>(Empty)</option></select></label>
+        <label>Director:<select><option>(Empty)</option></select></label>
+        <label>Visual Style:<select><option>(Empty)</option></select></label>
+        <label>Camera:<select><option>(Empty)</option><option>Arri Alexa</option><option>RED Komodo</option></select></label>
+        <label>Camera Movement:<select><option>(Empty)</option><option>Dolly</option><option>Tracking</option><option>Handheld</option><option>Crane</option><option>Zoom</option><option>Steadicam</option><option>Pan</option><option>Tilt</option><option>Static</option></select></label>
+        <label>Camera Angle:<select><option>(Empty)</option><option>Low Angle</option><option>High Angle</option><option>Overhead</option><option>POV</option><option>Over-the-shoulder</option><option>Eye Level</option><option>Worm’s Eye</option></select></label>
+        <label>Lens Type:<select><option>(Empty)</option><option>Anamorphic</option><option>Wide</option><option>Telephoto</option></select></label>
+        <label>Lighting:<select><option>(Empty)</option></select></label>
+        <label>Weather:<select><option>(Empty)</option><option>Sunny</option><option>Rainy</option><option>Foggy</option><option>Stormy</option><option>Misty</option><option>Windy</option><option>Snowy</option></select></label>
+        <label>Time of Day:<select><option>(Empty)</option><option>Morning</option><option>Midday</option><option>Golden Hour</option><option>Dusk</option><option>Midnight</option></select></label>
+        <label>Mood:<select><option>(Empty)</option></select></label>
+        <label>Orientation:<select><option>(Empty)</option><option>Portrait</option><option>Landscape</option></select></label>
+    </div>
 
-  <label>Director</label>
-  <select id="director">
-    <option>(Empty)</option>
-    <option>Denis Villeneuve</option>
-    <option>Greta Gerwig</option>
-  </select>
+    <div id="photographic" class="form-section">
+        <label>Photography Mode:<select><option>(Empty)</option><option>Canon EOS R5</option><option>Nikon Z9</option><option>Sony A7R V</option></select></label>
+        <label>Photography Lens:<select><option>(Empty)</option><option>50mm f/1.2</option><option>85mm f/1.4</option><option>24-70mm f/2.8</option></select></label>
+        <label>Photo Shot Type:<select><option>(Empty)</option><option>Portrait</option><option>Editorial</option><option>Candid</option><option>Fashion</option><option>Macro</option><option>Over-the-shoulder</option></select></label>
+        <label>Visual Style:<select><option>(Empty)</option></select></label>
+        <label>Lighting:<select><option>(Empty)</option></select></label>
+        <label>Weather:<select><option>(Empty)</option><option>Sunny</option><option>Rainy</option><option>Foggy</option><option>Stormy</option><option>Misty</option><option>Windy</option><option>Snowy</option></select></label>
+        <label>Time of Day:<select><option>(Empty)</option><option>Morning</option><option>Midday</option><option>Golden Hour</option><option>Dusk</option><option>Midnight</option></select></label>
+        <label>Mood:<select><option>(Empty)</option></select></label>
+        <label>Orientation:<select><option>(Empty)</option><option>Portrait</option><option>Landscape</option></select></label>
+    </div>
 
-  <label>Visual Style</label>
-  <select id="visual">
-    <option>(Empty)</option>
-    <option>Hyperrealism</option>
-    <option>Noir</option>
-  </select>
-
-  <label>Lens Type</label>
-  <select id="lens">
-    <option>(Empty)</option>
-    <option>Anamorphic</option>
-    <option>35mm</option>
-  </select>
-
-  <label>Lighting</label>
-  <select id="lighting">
-    <option>(Empty)</option>
-    <option>Golden Hour</option>
-    <option>Studio</option>
-  </select>
-
-  <label>Mood</label>
-  <select id="mood">
-    <option>(Empty)</option>
-    <option>Mysterious</option>
-    <option>Dreamy</option>
-  </select>
-
-  <button class="generate-button" onclick="generatePrompt()">Generate Prompt</button>
-  <div id="output"></div>
-  <button class="copy-button" onclick="copyPrompt()">Copy Prompt</button>
-
-  <script>
-    function generatePrompt() {
-      const genre = getValue("genre");
-      const director = getValue("director");
-      const visual = getValue("visual");
-      const lens = getValue("lens");
-      const lighting = getValue("lighting");
-      const mood = getValue("mood");
-
-      const prompt = \`\${genre} \${director} \${visual} \${lens} \${lighting} \${mood}\`.replace(/\s+/g, ' ').trim();
-      document.getElementById("output").innerText = prompt;
-    }
-
-    function getValue(id) {
-      const val = document.getElementById(id).value;
-      return val === "(Empty)" ? "" : val;
-    }
-
-    function copyPrompt() {
-      const text = document.getElementById("output").innerText;
-      navigator.clipboard.writeText(text);
-      alert("Prompt copied!");
-    }
-  </script>
+    <script>
+        function toggleMode(mode) {
+            document.getElementById('cinematic').classList.remove('active');
+            document.getElementById('photographic').classList.remove('active');
+            document.getElementById(mode).classList.add('active');
+        }
+    </script>
 </body>
 </html>
