@@ -35,7 +35,7 @@
             font-weight: bold;
         }
 
-        select, textarea, button {
+        select, button {
             width: 100%;
             margin-top: 8px;
             padding: 10px;
@@ -98,6 +98,40 @@
             <option>Nature Documentary</option>
         </select>
 
+        <label for="time">Time of Day</label>
+        <select id="time">
+            <option value="">(Empty)</option>
+            <option>Morning</option>
+            <option>Midday</option>
+            <option>Evening</option>
+            <option>Dawn</option>
+            <option>Dusk</option>
+            <option>Golden Hour</option>
+            <option>Midnight</option>
+        </select>
+
+        <label for="weather">Weather</label>
+        <select id="weather">
+            <option value="">(Empty)</option>
+            <option>Sunny</option>
+            <option>Rainy</option>
+            <option>Heavy Rain</option>
+            <option>Stormy</option>
+            <option>Foggy</option>
+            <option>Misty</option>
+            <option>Windy</option>
+        </select>
+
+        <label for="mood">Mood</label>
+        <select id="mood">
+            <option value="">(Empty)</option>
+            <option>Mysterious</option>
+            <option>Romantic</option>
+            <option>Melancholic</option>
+            <option>Dreamlike</option>
+            <option>Surreal</option>
+        </select>
+
         <label for="director">Director</label>
         <select id="director">
             <option value="">(Empty)</option>
@@ -128,16 +162,57 @@
             <option>RED V-Raptor XL</option>
         </select>
 
-        <label for="weather">Weather</label>
-        <select id="weather">
+        <label for="lens">Lens Type</label>
+        <select id="lens">
             <option value="">(Empty)</option>
-            <option>Sunny</option>
-            <option>Rainy</option>
-            <option>Heavy Rain</option>
-            <option>Stormy</option>
-            <option>Foggy</option>
-            <option>Misty</option>
-            <option>Windy</option>
+            <option>Anamorphic</option>
+            <option>Prime 50mm</option>
+            <option>Zoom 24-70mm</option>
+            <option>Wide-Angle 16mm</option>
+        </select>
+
+        <label for="angle">Camera Angle</label>
+        <select id="angle">
+            <option value="">(Empty)</option>
+            <option>Eye-Level</option>
+            <option>High Angle</option>
+            <option>Low Angle</option>
+            <option>Overhead (Bird’s Eye)</option>
+            <option>Worm’s Eye View</option>
+            <option>Dutch Angle</option>
+            <option>Over-the-Shoulder (OTS)</option>
+            <option>Point of View (POV)</option>
+            <option>Extreme Close-Up</option>
+            <option>Close-Up</option>
+            <option>Medium Shot</option>
+            <option>Medium Close-Up</option>
+            <option>Medium Long Shot</option>
+            <option>Full Shot</option>
+            <option>Long Shot (Wide Shot)</option>
+            <option>Extreme Long Shot</option>
+            <option>Two-Shot</option>
+            <option>Tracking OTS Shot</option>
+            <option>Static Shot</option>
+        </select>
+
+        <label for="movement">Camera Movement</label>
+        <select id="movement">
+            <option value="">(Empty)</option>
+            <option>Pan</option>
+            <option>Tilt</option>
+            <option>Dolly</option>
+            <option>Truck</option>
+            <option>Pedestal</option>
+            <option>Zoom</option>
+            <option>Crane</option>
+            <option>Handheld</option>
+            <option>Steadicam</option>
+            <option>Push-In</option>
+            <option>Pull-Out</option>
+            <option>Whip Pan</option>
+            <option>Tracking Shot</option>
+            <option>Arc Shot</option>
+            <option>Zolly (Dolly Zoom)</option>
         </select>
 
         <label for="lighting">Lighting</label>
@@ -147,37 +222,6 @@
             <option>Neon Lighting</option>
             <option>Natural Light</option>
             <option>Chiaroscuro</option>
-        </select>
-
-        <label for="time">Time of Day</label>
-        <select id="time">
-            <option value="">(Empty)</option>
-            <option>Morning</option>
-            <option>Midday</option>
-            <option>Evening</option>
-            <option>Dawn</option>
-            <option>Dusk</option>
-            <option>Golden Hour</option>
-            <option>Midnight</option>
-        </select>
-
-        <label for="mood">Mood</label>
-        <select id="mood">
-            <option value="">(Empty)</option>
-            <option>Mysterious</option>
-            <option>Romantic</option>
-            <option>Melancholic</option>
-            <option>Dreamlike</option>
-            <option>Surreal</option>
-        </select>
-
-        <label for="lens">Lens Type</label>
-        <select id="lens">
-            <option value="">(Empty)</option>
-            <option>Anamorphic</option>
-            <option>Prime 50mm</option>
-            <option>Zoom 24-70mm</option>
-            <option>Wide-Angle 16mm</option>
         </select>
 
         <button onclick="generatePrompt()">Generate Prompt</button>
@@ -191,29 +235,20 @@
 
     <script>
         function generatePrompt() {
-            const values = {
-                genre: document.getElementById('genre').value,
-                director: document.getElementById('director').value,
-                visualStyle: document.getElementById('visualStyle').value,
-                camera: document.getElementById('camera').value,
-                weather: document.getElementById('weather').value,
-                lighting: document.getElementById('lighting').value,
-                time: document.getElementById('time').value,
-                mood: document.getElementById('mood').value,
-                lens: document.getElementById('lens').value,
-            };
-
+            const get = id => document.getElementById(id).value;
             let prompt = "";
 
-            if (values.genre) prompt += `${values.genre} scene`;
-            if (values.director) prompt += ` directed in the style of ${values.director}`;
-            if (values.visualStyle) prompt += ` using ${values.visualStyle} cinematography`;
-            if (values.camera) prompt += `, filmed on a ${values.camera}`;
-            if (values.lens) prompt += ` with a ${values.lens} lens`;
-            if (values.lighting) prompt += `, lit using ${values.lighting}`;
-            if (values.weather) prompt += ` in ${values.weather.toLowerCase()} weather`;
-            if (values.time) prompt += ` during ${values.time.toLowerCase()}`;
-            if (values.mood) prompt += `, evoking a ${values.mood.toLowerCase()} mood`;
+            if (get('genre')) prompt += `${get('genre')} scene`;
+            if (get('time')) prompt += ` at ${get('time').toLowerCase()}`;
+            if (get('weather')) prompt += ` during ${get('weather').toLowerCase()} weather`;
+            if (get('mood')) prompt += `, evoking a ${get('mood').toLowerCase()} mood`;
+            if (get('director')) prompt += `. Shot in the style of ${get('director')}`;
+            if (get('visualStyle')) prompt += ` using ${get('visualStyle').toLowerCase()}`;
+            if (get('camera')) prompt += ` on a ${get('camera')}`;
+            if (get('lens')) prompt += ` with a ${get('lens')}`;
+            if (get('angle')) prompt += ` using a ${get('angle').toLowerCase()} camera angle`;
+            if (get('movement')) prompt += ` and ${get('movement').toLowerCase()} camera movement`;
+            if (get('lighting')) prompt += `. Lighting: ${get('lighting').toLowerCase()}`;
 
             prompt += `. Designed for hyperrealistic cinematic output.`;
 
