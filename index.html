@@ -137,7 +137,7 @@
 <option>Telephoto</option>
 </select>
 <label>Camera Movement</label><div id="cameraMovementDescription" style="color: white; margin-top: 5px;"></div>
-<select id="movement"><option>(Empty)</option><option>Static Shot</option><option>Pan</option><option>Tilt</option><option>Dolly (Tracking Shot)</option><option>Crane (Jib) Shot</option><option>Steadicam</option><option>Handheld</option><option>Zoom</option><option>Push-In</option><option>Pull-Out</option><option>Tracking Shot (Long Take)</option><option>Arc Shot</option><option>Whip Pan (Swish Pan)</option><option>Zolly (Dolly Zoom)</option><option>Pedestal (Boom Up/Down)</option><option>Drone Shot</option></select>
+<select id="camera-movement"><option>(Empty)</option><option>Static Shot</option><option>Pan</option><option>Tilt</option><option>Dolly (Tracking Shot)</option><option>Crane (Jib) Shot</option><option>Steadicam</option><option>Handheld</option><option>Zoom</option><option>Push-In</option><option>Pull-Out</option><option>Tracking Shot (Long Take)</option><option>Arc Shot</option><option>Whip Pan (Swish Pan)</option><option>Zolly (Dolly Zoom)</option><option>Pedestal (Boom Up/Down)</option><option>Drone Shot</option></select>
 <label>Camera Angle</label>
 <select id="angle">
 <option>(Empty)</option>
@@ -211,7 +211,6 @@
       navigator.clipboard.writeText(document.getElementById('prompt').innerText);
     }
   </script>
-
 <script>
 const cameraMovementDescriptions = {
   "Static Shot": "No camera movement. Used for stillness, tension, or uninterrupted performance.",
