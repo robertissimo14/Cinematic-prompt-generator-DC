@@ -7,105 +7,148 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <style>
         body {
-            font-family: Arial, sans-serif;
-            margin: 40px;
-            background: #0d0d0d;
-            color: #f2f2f2;
+            font-family: 'Segoe UI', sans-serif;
+            background: #0f0f0f;
+            color: #eaeaea;
+            padding: 40px;
+            margin: 0;
         }
+
         h1 {
             color: #00ffc2;
+            text-align: center;
+            margin-bottom: 30px;
         }
-        label, select, textarea, button {
-            display: block;
-            width: 100%;
-            margin-top: 20px;
-            font-size: 16px;
-        }
-        select, textarea {
-            padding: 10px;
-            border-radius: 5px;
-            border: none;
-        }
-        button {
-            background-color: #5f44ff;
-            color: white;
-            padding: 15px;
-            margin-top: 30px;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-        }
-        #output {
+
+        .container {
+            max-width: 800px;
+            margin: auto;
             background: #1a1a1a;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 0 15px rgba(0, 255, 194, 0.15);
+        }
+
+        label {
+            margin-top: 15px;
+            display: block;
+            font-weight: bold;
+        }
+
+        select, textarea, button {
+            width: 100%;
+            margin-top: 8px;
+            padding: 10px;
+            font-size: 16px;
+            border-radius: 6px;
+            border: none;
+            background-color: #2a2a2a;
+            color: #eaeaea;
+        }
+
+        button {
+            margin-top: 25px;
+            background-color: #5f44ff;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+        button:hover {
+            background-color: #472dfc;
+        }
+
+        #output {
+            margin-top: 30px;
             padding: 20px;
-            margin-top: 20px;
+            background: #111;
             border-left: 4px solid #00ffc2;
             white-space: pre-line;
+            border-radius: 6px;
+        }
+
+        .copy-btn {
+            margin-top: 10px;
+            background: #00ffc2;
+            color: #000;
+            font-weight: bold;
+        }
+
+        .footer {
+            margin-top: 40px;
+            text-align: center;
+            font-size: 14px;
+            color: #777;
         }
     </style>
 </head>
 <body>
-    <h1>Cinematic Prompt Generator</h1>
+    <div class="container">
+        <h1>Cinematic Prompt Generator</h1>
 
-    <label for="genre">Genre</label>
-    <select id="genre">
-        <option>Sci-Fi</option>
-        <option>Drama</option>
-        <option>Thriller</option>
-        <option>Romance</option>
-        <option>Fantasy</option>
-        <option>Horror</option>
-        <option>Surrealism</option>
-        <option>Nature Documentary</option>
-    </select>
+        <label for="genre">Genre</label>
+        <select id="genre">
+            <option>Sci-Fi</option>
+            <option>Drama</option>
+            <option>Thriller</option>
+            <option>Romance</option>
+            <option>Fantasy</option>
+            <option>Horror</option>
+            <option>Surrealism</option>
+            <option>Nature Documentary</option>
+        </select>
 
-    <label for="director">Director</label>
-    <select id="director">
-        <option>Denis Villeneuve</option>
-        <option>Guillermo del Toro</option>
-        <option>Christopher Nolan</option>
-        <option>Wes Anderson</option>
-        <option>Barry Jenkins</option>
-        <option>Robert Eggers</option>
-    </select>
+        <label for="director">Director</label>
+        <select id="director">
+            <option>Denis Villeneuve</option>
+            <option>Guillermo del Toro</option>
+            <option>Christopher Nolan</option>
+            <option>Wes Anderson</option>
+            <option>Barry Jenkins</option>
+            <option>Robert Eggers</option>
+        </select>
 
-    <label for="visualStyle">Visual Style</label>
-    <select id="visualStyle">
-        <option>Hyperrealism</option>
-        <option>Neo-Expressionism</option>
-        <option>Naturalistic Realism</option>
-        <option>Ultra-Widescreen Tableaux</option>
-        <option>Grainy Retro Analog</option>
-    </select>
+        <label for="visualStyle">Visual Style</label>
+        <select id="visualStyle">
+            <option>Hyperrealism</option>
+            <option>Neo-Expressionism</option>
+            <option>Naturalistic Realism</option>
+            <option>Ultra-Widescreen Tableaux</option>
+            <option>Grainy Retro Analog</option>
+        </select>
 
-    <label for="lens">Lens Type</label>
-    <select id="lens">
-        <option>Anamorphic</option>
-        <option>Prime 50mm</option>
-        <option>Zoom 24-70mm</option>
-        <option>Wide-Angle 16mm</option>
-    </select>
+        <label for="lens">Lens Type</label>
+        <select id="lens">
+            <option>Anamorphic</option>
+            <option>Prime 50mm</option>
+            <option>Zoom 24-70mm</option>
+            <option>Wide-Angle 16mm</option>
+        </select>
 
-    <label for="lighting">Lighting</label>
-    <select id="lighting">
-        <option>Golden Hour</option>
-        <option>Neon Lighting</option>
-        <option>Natural Light</option>
-        <option>Chiaroscuro</option>
-    </select>
+        <label for="lighting">Lighting</label>
+        <select id="lighting">
+            <option>Golden Hour</option>
+            <option>Neon Lighting</option>
+            <option>Natural Light</option>
+            <option>Chiaroscuro</option>
+        </select>
 
-    <label for="mood">Mood</label>
-    <select id="mood">
-        <option>Mysterious</option>
-        <option>Romantic</option>
-        <option>Melancholic</option>
-        <option>Dreamlike</option>
-        <option>Surreal</option>
-    </select>
+        <label for="mood">Mood</label>
+        <select id="mood">
+            <option>Mysterious</option>
+            <option>Romantic</option>
+            <option>Melancholic</option>
+            <option>Dreamlike</option>
+            <option>Surreal</option>
+        </select>
 
-    <button onclick="generatePrompt()">Generate Prompt</button>
+        <button onclick="generatePrompt()">Generate Prompt</button>
+        <div id="output"></div>
+        <button class="copy-btn" onclick="copyPrompt()">Copy Prompt</button>
+    </div>
 
-    <div id="output"></div>
+    <div class="footer">
+        &copy; 2025 Cinematic Prompt Generator. Made with 💡 and 🎬
+    </div>
 
     <script>
         function generatePrompt() {
@@ -119,6 +162,14 @@
             const prompt = `${genre}: A scene shot in the style of ${director} using ${style} cinematography, filmed with a ${lens} lens under ${lighting} lighting. The mood is ${mood}. Designed for hyperrealistic cinematic output.`;
 
             document.getElementById('output').textContent = prompt;
+        }
+
+        function copyPrompt() {
+            const output = document.getElementById('output').textContent;
+            if (!output) return;
+            navigator.clipboard.writeText(output).then(() => {
+                alert("Prompt copied to clipboard!");
+            });
         }
     </script>
 </body>
