@@ -153,7 +153,23 @@
             <option>Grainy Retro Analog</option>
         </select>
 
-        <label for="camera">Camera</label>
+        <label for="photoCamera">Photography Mode</label>
+        <select id="photoCamera">
+            <option value="">(Empty)</option>
+            <option>Hasselblad X2D 100C</option>
+            <option>Canon EOS R5</option>
+            <option>Sony A7R V</option>
+        </select>
+
+        <label for="photoLens">Photography Lens</label>
+        <select id="photoLens">
+            <option value="">(Empty)</option>
+            <option>XCD 80mm f/1.9</option>
+            <option>RF 85mm f/1.2</option>
+            <option>FE 135mm f/1.8 GM</option>
+        </select>
+
+        <label for="camera">Cinema Camera</label>
         <select id="camera">
             <option value="">(Empty)</option>
             <option>ARRI Alexa LF</option>
@@ -162,7 +178,7 @@
             <option>RED V-Raptor XL</option>
         </select>
 
-        <label for="lens">Lens Type</label>
+        <label for="lens">Cinema Lens</label>
         <select id="lens">
             <option value="">(Empty)</option>
             <option>Anamorphic</option>
@@ -244,10 +260,12 @@
             if (get('mood')) prompt += `, evoking a ${get('mood').toLowerCase()} mood`;
             if (get('director')) prompt += `. Shot in the style of ${get('director')}`;
             if (get('visualStyle')) prompt += ` using ${get('visualStyle').toLowerCase()}`;
-            if (get('camera')) prompt += ` on a ${get('camera')}`;
+            if (get('photoCamera')) prompt += `. Captured with ${get('photoCamera')}`;
+            if (get('photoLens')) prompt += ` and ${get('photoLens')} lens`;
+            if (get('camera')) prompt += `. Cinematography on ${get('camera')}`;
             if (get('lens')) prompt += ` with a ${get('lens')}`;
             if (get('angle')) prompt += ` using a ${get('angle').toLowerCase()} camera angle`;
-            if (get('movement')) prompt += ` and ${get('movement').toLowerCase()} camera movement`;
+            if (get('movement')) prompt += ` and ${get('movement').toLowerCase()} movement`;
             if (get('lighting')) prompt += `. Lighting: ${get('lighting').toLowerCase()}`;
 
             prompt += `. Designed for hyperrealistic cinematic output.`;
