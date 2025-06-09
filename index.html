@@ -136,7 +136,7 @@
 <option>Wide Angle</option>
 <option>Telephoto</option>
 </select>
-<label>Camera Movement</label>
+<label>Camera Movement</label><div id="cameraMovementDescription" style="color: white; margin-top: 5px;"></div>
 <select id="movement"><option>(Empty)</option><option>Static Shot</option><option>Pan</option><option>Tilt</option><option>Dolly (Tracking Shot)</option><option>Crane (Jib) Shot</option><option>Steadicam</option><option>Handheld</option><option>Zoom</option><option>Push-In</option><option>Pull-Out</option><option>Tracking Shot (Long Take)</option><option>Arc Shot</option><option>Whip Pan (Swish Pan)</option><option>Zolly (Dolly Zoom)</option><option>Pedestal (Boom Up/Down)</option><option>Drone Shot</option></select>
 <label>Camera Angle</label>
 <select id="angle">
@@ -211,5 +211,32 @@
       navigator.clipboard.writeText(document.getElementById('prompt').innerText);
     }
   </script>
+
+<script>
+const cameraMovementDescriptions = {
+  "Static Shot": "No camera movement. Used for stillness, tension, or uninterrupted performance.",
+  "Pan": "Horizontal pivot. Used to reveal space or follow a subject.",
+  "Tilt": "Vertical movement. Used to reveal tall elements or shift scale.",
+  "Dolly (Tracking Shot)": "Camera moves on rails or wheels. Used for immersive push/pull emotional flow.",
+  "Crane (Jib) Shot": "Camera lifted by crane. Used for grand reveals or exits.",
+  "Steadicam": "Fluid handheld rig. Used for immersive long takes.",
+  "Handheld": "Shaky, unsteady movement. Used for realism, chaos, or urgency.",
+  "Zoom": "Lens zooms in/out. Used for stylized or psychological focus shifts.",
+  "Push-In": "Camera moves forward. Used to heighten emotion.",
+  "Pull-Out": "Camera moves back. Used for emotional detachment or reveals.",
+  "Tracking Shot (Long Take)": "Continuous moving shot. Used to immerse viewer without cuts.",
+  "Arc Shot": "Camera circles subject. Used for tension, intimacy, or surreal effect.",
+  "Whip Pan (Swish Pan)": "Fast horizontal blur. Used for energy or sudden transitions.",
+  "Zolly (Dolly Zoom)": "Zoom + dolly effect. Used for psychological distortion or epiphany.",
+  "Pedestal (Boom Up/Down)": "Vertical lift of camera. Used to change stature or focus.",
+  "Drone Shot": "Aerial movement. Used to establish geography or epic scale."
+};
+
+document.getElementById('camera-movement')?.addEventListener('change', function () {
+  const value = this.value;
+  document.getElementById('cameraMovementDescription').textContent =
+    cameraMovementDescriptions[value] || "";
+});
+</script>
 </body>
 </html>
